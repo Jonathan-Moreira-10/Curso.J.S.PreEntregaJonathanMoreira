@@ -251,7 +251,7 @@ if (tipodeproducto==="e") {
       while(formadepago!=="d"||formadepago!=="c" ||formadepago!==""||Number(formadepago))  
     }
   }
-      while(tipodeproducto!=="h"&&tipodeproducto!=="e"||Number(tipodeproducto) || tipodeproducto!=="")
+      while(tipodeproducto!=="h"||tipodeproducto!=="e"||Number(tipodeproducto) || tipodeproducto!=="")
       
     
  }
