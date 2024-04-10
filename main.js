@@ -68,7 +68,7 @@
 
  let articuloSelecionado;
 
- let tipodeproducto=""
+ let tipodeproducto="";
 
  let formadepago;
 
