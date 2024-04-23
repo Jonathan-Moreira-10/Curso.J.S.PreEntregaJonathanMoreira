@@ -1,36 +1,13 @@
 // //carrito
 
  const carrito=[];
+
+ let producto;
  ///Función agregar al carrito.
 
- const agregarAlCarrito=(producto)=>{
-  const itemEncontrado=carrito.find(item=>item.nombre===producto.nombre);
-  if(itemEncontrado){
-   itemEncontrado.cantidad++;
-  }
-  else{
-    carrito.push({...producto,cantidad:1});
-  }
-}
+ 
   //Función actualizar carrito.
-const actualizarCarrito=()=>{
-  if (carrito.length=0){
-    carritoVacio.classList.remove("d-none");
-    carritoProductos.classList.add("d-none");
-  }
-  else{
-   carritoVacio.classList.add("d-none");
-   carritoProductos.classList.remove("d-none");
-   const div=document.createElement("div");
-   div.classList.add("carrito-producto");
-   div.innerHTML=`
-   <h3>${producto.nombre}</h3>
-   <span>${producto.precio}</span>
-   
-   `
 
-  }
-}
 
 //
 
@@ -88,6 +65,59 @@ const carritoVacio=document.querySelector("#carrito-vacio");
 const carritoProductos=document.querySelector("#carrito-productos");
 const carritoTotal=document.querySelector("#carrito-total");
 
+
+ const agregarAlCarrito=(producto)=>{
+  const itemEncontrado=carrito.find(item=>item.nombre===producto.nombre);
+  if(itemEncontrado){
+   itemEncontrado.cantidad++;
+   console.log(itemEncontrado)
+  }
+  else{
+    carrito.push({...producto,cantidad:1});
+  }
+  actualizarCarrito();
+};
+
+
+
+const actualizarCarrito=()=>{
+  if (carrito.length===0){
+    carritoVacio.classList.remove("d-none");
+    carritoProductos.classList.add("d-none");
+  }
+  else{
+   carritoVacio.classList.add("d-none");
+   carritoProductos.classList.remove("d-none");
+   carritoProductos.innerHTML="";
+   carrito.forEach(producto=>{
+   const div =document.createElement("div");
+   div.classList.add("carrito-producto", "d-flex");
+   div.innerHTML=`
+   <h5 class="m-2">${producto.nombre}</h5>
+   <p class="m-2">Cant:${producto.cantidad}</p>
+   <p class="m-2">Precio por unid:$${producto.precio}</p>
+   <p class="m-2">Subt:${producto.cantidad*producto.precio}</p>
+   
+   `;
+   
+   const btn=document.createElement("button");
+   btn.classList.add("carrito-producto-btn");
+   btn.innerHTML="borrar";
+   btn.addEventListener("click",()=>{
+    borrarDelCarrito(producto);
+   })
+   div.append(btn);
+   carritoProductos.append(div);});
+  }
+};
+
+const borrarDelCarrito=(producto) =>{
+  const prodindex =carrito.findIndex(item=>item.nombre===producto.nombre);
+  carrito.splice(prodindex,1);
+  actualizarCarrito();
+}
+
+
 ///Funcion para crear contenido y agregarlo a las constantes-contenedores del tipo hogar.
 
 productoshogar.forEach((producto)=>{
@@ -113,7 +143,7 @@ btn.addEventListener("click",() =>{
   agregarAlCarrito(producto);
  console.log(carrito);
 })
-})
+});
 
 ///Funcion para crear contenido y agregarlo a las constantes-contenedores del tipo electrodomestico.
 
@@ -138,7 +168,6 @@ btn.innerHTML=`<span>Agregar al carrito</span>`;
 btn.addEventListener("click",() =>{
   agregarAlCarrito(producto);
 console.log(carrito);
-
 })
 
 div.append(btn);
@@ -233,7 +262,7 @@ div.append(btn);
 
 // ///Inicio de función
 
-//  function ventas(){
+
 
 // ///Inicia con una pregunta al usuario
 
@@ -330,10 +359,9 @@ div.append(btn);
 //       while(formadepago!=="d"||formadepago!=="c" ||formadepago!==""||Number(formadepago))  
 //     }
 //   }while(tipodeproducto!=="h"||tipodeproducto!=="e"||Number(tipodeproducto) || tipodeproducto!=="")
-// } 
+// 
 
      
       
     
  
-// ventas()
