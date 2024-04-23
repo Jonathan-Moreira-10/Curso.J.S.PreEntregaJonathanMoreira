@@ -3,13 +3,6 @@
  const carrito=[];
 
  let producto;
- ///Función agregar al carrito.
-
- 
-  //Función actualizar carrito.
-
-
-//
 
 
 //Funcion constructora de objetos.
@@ -65,6 +58,7 @@ const carritoVacio=document.querySelector("#carrito-vacio");
 const carritoProductos=document.querySelector("#carrito-productos");
 const carritoTotal=document.querySelector("#carrito-total");
 
+//Función para agregar al carrito.
 
  const agregarAlCarrito=(producto)=>{
   const itemEncontrado=carrito.find(item=>item.nombre===producto.nombre);
@@ -78,7 +72,7 @@ const carritoTotal=document.querySelector("#carrito-total");
   actualizarCarrito();
 };
 
-
+///Función para actualizar el carrito.
 
 const actualizarCarrito=()=>{
   if (carrito.length===0){
@@ -99,7 +93,9 @@ const actualizarCarrito=()=>{
    <p class="m-2">Subt:${producto.cantidad*producto.precio}</p>
    
    `;
-   
+
+   ///Btn con evento de que llama a la función de borrar.
+
    const btn=document.createElement("button");
    btn.classList.add("carrito-producto-btn");
    btn.innerHTML="borrar";
@@ -109,13 +105,24 @@ const actualizarCarrito=()=>{
    div.append(btn);
    carritoProductos.append(div);});
   }
+  actualizarTotal();
 };
+
+///Función de borrar un elemento del carrito.
 
 const borrarDelCarrito=(producto) =>{
   const prodindex =carrito.findIndex(item=>item.nombre===producto.nombre);
   carrito.splice(prodindex,1);
   actualizarCarrito();
-}
+};
+
+//Función para conseguir el total del carrito
+
+const actualizarTotal=()=>{
+  const total=carrito.reduce((acumulado,producto)=>acumulado+(producto.precio*producto.cantidad),0);
+  carritoTotal.innerText=`$${total}
+  `
+ };
 
 
 ///Funcion para crear contenido y agregarlo a las constantes-contenedores del tipo hogar.
